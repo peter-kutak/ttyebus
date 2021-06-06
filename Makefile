@@ -46,4 +46,12 @@ uninstall:
 	rm $(TARGET_DIR)/$(TARGET_MODULE).ko
 	sed -i "s/$(TARGET_MODULE)//g" /etc/modules
 
+dkms:
+	#dorobit podla vzoru https://github.com/groeck/k10temp/pull/7/commits/3e5b7bff2df31c85fbdadfbd96ae0096883d1634
+	echo ttyebus > /etd/modules-load/ttyebus.conf
+	dkms install -m ttyebus -v $(DRIVER_VERSION)
+
+
+dkms_clean:
+	dkms remove -m ttyebus -v $(DRIVER_VERSION)
 endif
